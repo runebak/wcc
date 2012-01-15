@@ -1,0 +1,14 @@
+This program computes the windowed cross correlation
+It was originally developed for the 
+Department of Psychology, Copenhagen University.
+
+It will install the command-line program "wcc".
+To get help type wcc --help.
+To get help on installation, look at the INSTALL file.
+
+If you need a more permissive license,
+or anything else to use this, please open an issue.
+
+Also feel free to comment on 
+ease of use, functionality, code style or anything else
+that comes to your mind!
