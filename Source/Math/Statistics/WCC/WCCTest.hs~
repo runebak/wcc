@@ -1,0 +1,40 @@
+{-# LANGUAGE RecordWildCards #-}
+module Math.Statistics.WCC.WCCTest where -- (wcc1,wcc2) where
+import qualified Math.Statistics.WCC as W1
+import qualified Math.Statistics.WCC_OLD as W2
+
+data WCCParams = WCCParams { windowIncrement :: Int -- ^ Window increment
+                           , windowSize      :: Int -- ^ Window size
+--                         , maxLag          :: Int -- ^ max lag
+                           , lagSteps        :: Int -- ^ max lag
+                           , lagIncrement    :: Int -- ^ lag increment
+                           } deriving (Show)
+
+testParams = WCCParams { windowIncrement = 1
+                       , windowSize      = 8
+                       , lagSteps        = 5
+                       , lagIncrement    = 1
+                       }
+testData :: [Double]
+testData = concat . replicate 5 $ replicate 5 0 ++ replicate 5 1
+withData d f = f d d
+paramsToW1 (WCCParams{..}) = W1.WCCParams{..}
+paramsToW2 (WCCParams{..}) = W2.WCCParams{..}
+wcc1',wcc2' :: WCCParams -> [Double] -> [[Double]]
+wcc1' p d= withData d . W1.wcc $ paramsToW1 p 
+wcc2' p d= withData d . W2.wcc $ paramsToW2 p
+wcc1,wcc2 :: [Double] -> [[Double]]
+wcc1 = wcc1' testParams
+wcc2 = wcc2' testParams
+
+(.:) = (.).(.)
+infixr 8 .:
+epsilon :: Double
+epsilon = 0.0001
+isSimilarTo :: [[Double]] -> [[Double]] -> Bool
+isSimilarTo = and . concat .: zipWith (zipWith (\x y -> (isNaN x && isNaN y) || abs (x-y) < epsilon))
+
+equalOn d = wcc1 d `isSimilarTo` wcc2 d
+
+dimension :: [[a]] -> (Int, Int)
+dimension x = (length x,length (head x))

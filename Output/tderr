@@ -1,0 +1,24 @@
+./WCC --window-increment=30 --window-size=600 --lag-increment=3 --lag-steps=10 --infile=camillananna418000.txt --outfile=camilla_progress.png +RTS -stderr 
+  12,974,205,932 bytes allocated in the heap
+   1,536,097,148 bytes copied during GC
+      15,790,144 bytes maximum residency (43 sample(s))
+         543,396 bytes maximum slop
+              45 MB total memory in use (0 MB lost due to fragmentation)
+
+  Generation 0: 24702 collections,     0 parallel, 11.38s, 11.74s elapsed
+  Generation 1:    43 collections,     0 parallel,  1.28s,  1.39s elapsed
+
+  INIT  time    0.00s  (  0.02s elapsed)
+  MUT   time   57.03s  ( 57.41s elapsed)
+  GC    time   12.67s  ( 13.13s elapsed)
+  RP    time    0.00s  (  0.00s elapsed)
+  PROF  time    0.00s  (  0.00s elapsed)
+  EXIT  time    0.00s  (  0.00s elapsed)
+  Total time   69.70s  ( 70.56s elapsed)
+
+  %GC time      18.2%  (18.6% elapsed)
+
+  Alloc rate    227,491,613 bytes per MUT second
+
+  Productivity  81.8% of total user, 80.8% of total elapsed
+

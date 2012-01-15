@@ -1,0 +1,46 @@
+module Output where
+import Data.ByteString.Lazy(ByteString)
+import Data.Word(Word8)
+import qualified Data.ByteString.Lazy.Char8 as B
+import Data.ByteString.Lazy.ShowDouble(showDouble)
+import Codecs.PngCreate
+-- import Data.Colour.Names(red,green,blue,black)
+-- import Data.Colour(blend)
+-- import Data.Colour.SRGB(toSRGB24)
+-- import Data.Colour.RGBSpace(uncurryRGB)
+
+type Color = (Word8, Word8, Word8)
+-- toColor :: Double -> Color
+-- toColor = uncurryRGB (\r g b -> (r,g,b)) . toSRGB24 . toColor'
+--   where toColor' x | x > 1.1 || x < 1.1 = black
+--                    | x < 0 = blend x' red green
+--                    | x > 0 = blend x' blue green
+--                    | otherwise = green
+--           where x' = abs x
+toPNG :: [[Double]] -> ByteString
+toPNG = png . map (map toColor)
+toRaw :: [[Double]] -> ByteString
+toRaw = B.unlines . map (B.intercalate spacing . map showDouble)
+  where spacing = B.pack "  "
+        
+toColor :: Double -> Color
+toColor d | d<0  = interpolate (between d (-1,0)) blue green 
+          | d>0  = interpolate (between d (0,1)) green red
+          -- | d<(-0.5)  = interpolate (between d (-1,-0.5)) blue green
+          -- | d<(-0.5)  = interpolate (between d (-1,-0.5) blue green
+          | otherwise = (255,255,255)
+  where x = min 255 $ floor $ 255 * abs d
+-- blend :: Double -> Color -> Color
+-- blend x c1 c2 = 
+between :: Double -> (Double,Double) -> Double
+between t (r,s) = (t-r)/(s-r)
+interpolate :: Double -> Color -> Color -> Color 
+interpolate t d1 d2 = liftV3 round $ (t *: d2) +: ((1-t) *: d1) 
+liftV3 f (a,b,c) = (f a, f b, f c)
+(*:) r = liftV3 ((r*) . fromIntegral)
+(a1,b1,c1) +: (a2,b2,c2) = (a1+a2,b1+b2,c1+c2)
+red = (255,0,0)
+green = (0,255,0)
+blue = (0,0,255)
+white = (0,0,0)
+black = (255,255,255)

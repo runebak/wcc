@@ -1,0 +1,90 @@
+	Thu Jun  9 18:34 2011 Time and Allocation Profiling Report  (Final)
+
+	   WCC +RTS -p -RTS --window-increment=30 --window-size=600 --lag-increment=3 --lag-steps=10 --infile=camillananna418000.txt --outfile=camilla_progress.png
+
+	total time  =     1324.62 secs   (66231 ticks @ 20 ms)
+	total alloc = 8,824,269,520 bytes  (excludes profiling overheads)
+
+COST CENTRE                    MODULE               %time %alloc
+
+wccSplit                       Math.Statistics.WCC   95.3    4.0
+wcc                            Math.Statistics.WCC    4.7   95.5
+
+
+                                                                                               individual    inherited
+COST CENTRE              MODULE                                               no.    entries  %time %alloc   %time %alloc
+
+MAIN                     MAIN                                                   1           0   0.0    0.0   100.0  100.0
+ CAF                     Main                                                 402           1   0.0    0.0   100.0  100.0
+  main                   Main                                                 408           1   0.0    0.0   100.0  100.0
+   withArgs              CommandLine                                          409           1   0.0    0.0   100.0  100.0
+    main'                Main                                                 420           1   0.0    0.0   100.0  100.0
+     toPNG               Output                                               423           2   0.0    0.0     0.0    0.1
+      toColor            Output                                               452       12138   0.0    0.1     0.0    0.1
+      png                Codecs.PngCreate                                     424           1   0.0    0.0     0.0    0.1
+       pngColor          Codecs.PngCreate                                     425           2   0.0    0.0     0.0    0.1
+        scanlineColor    Codecs.PngCreate                                     448        1158   0.0    0.1     0.0    0.1
+        be32             Codecs.PngCreate                                     430           2   0.0    0.0     0.0    0.0
+        chunk            Codecs.PngCreate                                     428           2   0.0    0.0     0.0    0.0
+         crc             Codecs.PngCreate                                     443           2   0.0    0.0     0.0    0.0
+          updateCrc      Codecs.PngCreate                                     444           2   0.0    0.0     0.0    0.0
+           crcStep       Codecs.PngCreate                                     446       11054   0.0    0.0     0.0    0.0
+         be32            Codecs.PngCreate                                     429           4   0.0    0.0     0.0    0.0
+     toOutput            Main                                                 422           1   0.0    0.0     0.0    0.0
+     computeWCC          Main                                                 421           1   0.0    0.0   100.0   99.9
+      wcc                Math.Statistics.WCC                                  436           1   4.7   95.5   100.0   99.5
+       wccSplit          Math.Statistics.WCC                                  437     3370949  95.3    4.0    95.3    4.0
+      parseFile          Parse                                                431           3   0.0    0.1     0.0    0.3
+       readRow           Parse                                                434       17999   0.0    0.0     0.0    0.2
+        maybeReadDouble  Parse                                                435       35998   0.0    0.2     0.0    0.2
+       isComment         Parse                                                432       18003   0.0    0.0     0.0    0.0
+        isCommentStart   Parse                                                433       18003   0.0    0.0     0.0    0.0
+    parseOpts            CommandLine                                          419           1   0.0    0.0     0.0    0.0
+ CAF                     Data.Typeable                                        400          20   0.0    0.0     0.0    0.0
+ CAF                     Text.Read.Lex                                        368           4   0.0    0.0     0.0    0.0
+ CAF                     GHC.Int                                              364           2   0.0    0.0     0.0    0.0
+ CAF                     Data.HashTable                                       340           3   0.0    0.0     0.0    0.0
+ CAF                     GHC.IO.Handle.FD                                     338           2   0.0    0.0     0.0    0.0
+ CAF                     GHC.IO.FD                                            322           8   0.0    0.0     0.0    0.0
+ CAF                     GHC.IO.Encoding.Iconv                                296           2   0.0    0.0     0.0    0.0
+ CAF                     GHC.Conc.Signal                                      293           1   0.0    0.0     0.0    0.0
+ CAF                     CommandLine                                          288          31   0.0    0.0     0.0    0.0
+  debug                  CommandLine                                          418           8   0.0    0.0     0.0    0.0
+  outfile                CommandLine                                          417           6   0.0    0.0     0.0    0.0
+  infile                 CommandLine                                          416           5   0.0    0.0     0.0    0.0
+  outputFormat           CommandLine                                          415           7   0.0    0.0     0.0    0.0
+  lagIncrement           CommandLine                                          414           4   0.0    0.0     0.0    0.0
+  lagSteps               CommandLine                                          413           3   0.0    0.0     0.0    0.0
+  windowSize             CommandLine                                          412           2   0.0    0.0     0.0    0.0
+  windowIncrement        CommandLine                                          411           1   0.0    0.0     0.0    0.0
+  withArgs               CommandLine                                          410           0   0.0    0.0     0.0    0.0
+ CAF                     System.Console.CmdLib.Record                         278           4   0.0    0.0     0.0    0.0
+ CAF                     System.Console.CmdLib.Command                        275           1   0.0    0.0     0.0    0.0
+ CAF                     System.Console.CmdLib.Flag                           274          16   0.0    0.0     0.0    0.0
+ CAF                     System.Console.CmdLib.Attribute                      273           5   0.0    0.0     0.0    0.0
+ CAF                     Data.ByteString.Lex.Lazy.Double                      236           1   0.0    0.0     0.0    0.0
+ CAF                     Data.ByteString.Lazy                                 223           2   0.0    0.0     0.0    0.0
+ CAF                     Output                                               222           2   0.0    0.0     0.0    0.0
+  toColor                Output                                               450           0   0.0    0.0     0.0    0.0
+  toPNG                  Output                                               438           0   0.0    0.0     0.0    0.0
+   toColor               Output                                               449          21   0.0    0.0     0.0    0.0
+ CAF                     Codecs.PngCreate                                     221          41   0.0    0.0     0.0    0.0
+  iEND                   Codecs.PngCreate                                     457           1   0.0    0.0     0.0    0.0
+   pack                  Codecs.PngCreate                                     458           1   0.0    0.0     0.0    0.0
+  iDAT                   Codecs.PngCreate                                     453           1   0.0    0.0     0.0    0.0
+   pack                  Codecs.PngCreate                                     454           1   0.0    0.0     0.0    0.0
+  scanlineColor          Codecs.PngCreate                                     451           0   0.0    0.0     0.0    0.0
+  crcTab                 Codecs.PngCreate                                     447           2   0.0    0.0     0.0    0.0
+  crc                    Codecs.PngCreate                                     445           0   0.0    0.0     0.0    0.0
+  iHDR                   Codecs.PngCreate                                     441           1   0.0    0.0     0.0    0.0
+   pack                  Codecs.PngCreate                                     442           1   0.0    0.0     0.0    0.0
+  pngColor               Codecs.PngCreate                                     439           0   0.0    0.0     0.0    0.0
+   chunk                 Codecs.PngCreate                                     455           1   0.0    0.0     0.0    0.0
+    crc                  Codecs.PngCreate                                     459           1   0.0    0.0     0.0    0.0
+     updateCrc           Codecs.PngCreate                                     460           1   0.0    0.0     0.0    0.0
+      crcStep            Codecs.PngCreate                                     461           4   0.0    0.0     0.0    0.0
+    be32                 Codecs.PngCreate                                     456           2   0.0    0.0     0.0    0.0
+   be8                   Codecs.PngCreate                                     440           5   0.0    0.0     0.0    0.0
+  hdr                    Codecs.PngCreate                                     426           1   0.0    0.0     0.0    0.0
+   pack                  Codecs.PngCreate                                     427           1   0.0    0.0     0.0    0.0
+ CAF                     Codec.Compression.Zlib.Stream                        218           1   0.0    0.0     0.0    0.0

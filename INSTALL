@@ -1,0 +1,36 @@
+
+* Installing a haskell compiler
+
+To install you need a recent haskell compiler.
+The easiest way is to install the haskell platform.
+If you are on ubuntu/debian-linux, simply open a terminal and type
+>sudo apt-get install haskell-platform
+otherwise see http://www.haskell.org/platform
+
+Note, this is only tested on linux, but should work 
+on windows/mac/etc. If not please let me know.
+
+* Installing the wcc-program (or any other haskell-program...)
+
+When you have the haskell platform installed,
+unpack the wcc program either graphically (on windows download 7-Zip or similar), or if on linux just type
+>tar -zxf wcc-X-X.tgz
+where X-X is the version number.
+enter the directory
+>cd wcc-X-X
+and install.
+>cabal install
+
+To be able to just type
+>wcc
+in any directory, the place where wcc is installed need to be in
+your $PATH environment.
+on linux it is .cabal/bin.
+To add it too you $PATH environment in ubuntu/debian, type
+>echo "PATH=\"\$HOME/.cabal/bin:\$PATH\"" >> ~/.profile
+and re-login.
+
+Or install it globally (for all users, requires root-permissions) typing
+>sudo cabal install --global
+instead of cabal install
+

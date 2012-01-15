@@ -1,0 +1,33 @@
+Name:                wcc
+Version:             0.1.2
+Synopsis:            Compute the "Windowed Cross Correlation"
+Description:         Compute the "Windowed Cross Correlation"
+License:             BSD3
+License-file:        LICENSE
+Author:              Rune Harder Bak
+Maintainer:          rune@bak.dk
+-- Copyright:           
+Category:            Math
+Build-type:          Simple
+
+-- Extra files to be distributed with the package, such as examples or
+-- a README.
+Extra-source-files:  INSTALL
+-- Constraint on the version of Cabal needed to build this package.
+Cabal-version:       >=1.6
+
+-- Library 
+--   Exposed-modules: Math.Statistics.WCC	
+Executable wcc
+  Hs-Source-Dirs: Source
+  Main-is: ConsoleProg.hs            
+  Build-depends: base == 4.*
+                ,bytestring,hstats,cmdlib,bytestring-lexing,zlib,array      
+                ,process,bytestring-progress,colour
+  -- Modules not exported by this package.
+  Other-modules: CommandLine, DebugPrint, DebugUtils, Output, Parse, Utils
+                 , Math.Statistics.WCC, Math.Statistics.WCC.Types, Codecs.PngCreate
+                 , Data.ByteString.Lazy.ShowDouble
+  
+  -- Extra tools (e.g. alex, hsc2hs, ...) needed to build the source.
+  -- Build-tools:         

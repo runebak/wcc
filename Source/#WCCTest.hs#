@@ -1,0 +1,41 @@
+{-# LANGUAGE RecordWildCards #-}
+--module Math.Statistics.WCC.WCCTest where -- (wcc1,wcc2) where
+module Main where
+import Math.Statistics.WCC.Types
+import qualified Math.Statistics.WCC_OLD as W1
+import qualified Math.Statistics.WCC_NEW as W2
+import qualified Math.Statistics.WCC as W0
+import DebugUtils
+import Test.QuickCheck
+import Test.QuickCheck.Monadic(monadicIO,assert,run)
+import Control.Applicative
+import Data.Function(on)
+
+main = verboseCheck $ (withData prop_sameDimension testParams) .&&. (withData prop_isSimilar testParams)
+withData f p d = f p d d
+arbitraryNonNegInt :: Gen Int
+arbitraryNonNegInt = choose (1,maxBound)
+instance Arbitrary WCCParams where
+  arbitrary = WCCParams <$> arbitraryNonNegInt
+                        <*> arbitraryNonNegInt
+                        <*> arbitraryNonNegInt
+                        <*> arbitraryNonNegInt
+  shrink (WCCParams a b c d) = [ WCCParams a' b' c' d' | (a',b',c',d') <- shrink (a,b,c,d) 
+                                                       , a'>0,b'>0,c'>0,d'>0]
+
+wcc1' = W1.wcc
+wcc1 = W0.wcc
+
+testPropC f p d1 d2 = monadicIO $ f (wcc1 p d1 d2) <$> run (either error id <$> wccC p d1 d2)
+
+wcc2 p d1 d2 = case W2.wcc p d1 d2 of
+                            [] -> []
+                            l  -> tail l
+testProp f p d1 d2 = (length d1 == length d2) ==> f (wcc1 p d1 d2) (wcc2 p d1 d2)  
+prop_sameDimension  = testProp sameDimensions
+prop_isSimilar      = testProp isSimilarTo 
+
+testParams = WCCParams 2 5 3 2
+testData :: [Double]
+testData = [7.0,33.0,31.0,25.0,11.0,17.0,20.0,12.0,4.0,24.0,53.0,9.0,14.0]
+testData2 = [21.0,20.0,10.0,19.0,3.0,3.0,13.0,6.0,45.0,15.0,8.0,14.0,17.0]
